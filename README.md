@@ -61,6 +61,11 @@ powershell -ExecutionPolicy Bypass -File build-native-windows.ps1
     3.Debug 节点会看到 {"ok":true,"baseUrl":"http://127.0.0.1:18080"}。
     ```
 sidecar 仅监听 127.0.0.1，更安全。端口可在节点属性里改。
+    ```
+    访问：http://127.0.0.1:18080/actuator/health
+    {"status":"UP"}：就表示 sidecar 已正常启动，你可以继续用 rmq-producer / rmq-consumer 节点收发消息。
+    ```
+
 
 发送 Producer
     •放入 rmq-producer 节点（Base URL 填 http://127.0.0.1:18080）。
