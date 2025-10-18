@@ -3,11 +3,43 @@ module.exports = function(RED) {
   const path = require('path');
   const fs = require('fs');
   const http = require('http');
-  const getPort = require('get-port');
+  const net = require('net');
 
   let proc = null;
   let baseUrl = null;
   let stopping = false;
+
+  // --- ESM-friendly, dependency-optional port chooser ---
+  async function findFreePort(preferred) {
+    const tryListen = (port) => new Promise((resolve, reject) => {
+      const srv = net.createServer();
+      srv.unref();
+      srv.on('error', reject);
+      srv.listen(port, '127.0.0.1', () => {
+        const found = srv.address().port;
+        srv.close(() => resolve(found));
+      });
+    });
+    // try preferred first, then OS-assigned
+    if (Number.isFinite(preferred) && preferred > 0) {
+      try { return await tryListen(preferred); } catch (_) {}
+    }
+    return await tryListen(0);
+  }
+
+  async function choosePort(preferred) {
+    // Try dynamic import of ESM get-port when available
+    try {
+      const mod = await import('get-port');
+      const fn = mod && (mod.default || mod);
+      if (typeof fn === 'function') {
+        return await fn({ port: preferred });
+      }
+    } catch (_) {
+      // ignore and fallback
+    }
+    return await findFreePort(preferred);
+  }
 
   async function waitForHealthy(url, timeoutMs) {
     const deadline = Date.now() + timeoutMs;
@@ -125,7 +157,7 @@ module.exports = function(RED) {
       const cleanup = () => { if (typeof done === 'function') done(); };
       try {
         const configured = parseInt(config.port, 10);
-        const port = Number.isFinite(configured) && configured > 0 ? configured : await getPort({ port: 18080 });
+        const port = Number.isFinite(configured) && configured > 0 ? configured : await choosePort(18080);
         const url = await startSidecar(node, port);
         node.status({ fill: 'green', shape: 'dot', text: `sidecar ${url}` });
         msg.payload = { ok: true, baseUrl: url };
