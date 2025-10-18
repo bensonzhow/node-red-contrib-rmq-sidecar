@@ -2,6 +2,8 @@
 
 自带 RocketMQ 4.x 边车（原生二进制），Node-RED 通过 REST 调用实现发送/消费，避免 Node.js 直连 4.x 的兼容问题。
 
+如果使用RocketMQ 5.x 使用另一个插件 https://www.npmjs.com/package/node-red-zrocketmq
+
 ## 安装 & 构建
 
 1) 安装 GraalVM JDK 17，`gu install native-image`，安装 Maven。
