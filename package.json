@@ -1,0 +1,27 @@
+{
+  "name": "node-red-contrib-rmq-sidecar",
+  "version": "0.0.1",
+  "description": "RocketMQ 4.x sidecar for Node-RED (native binary + producer/consumer nodes)",
+  "author": "you",
+  "license": "MIT",
+  "keywords": [
+    "node-red",
+    "rocketmq",
+    "sidecar"
+  ],
+  "node-red": {
+    "nodes": {
+      "rmq-sidecar": "nodes/rmq-sidecar.js",
+      "rmq-producer": "nodes/rmq-producer.js",
+      "rmq-consumer": "nodes/rmq-consumer.js"
+    }
+  },
+  "scripts": {
+    "verify": "node scripts/verify-binary.js",
+    "pack": "npm pack"
+  },
+  "dependencies": {
+    "axios": "^1.7.0",
+    "get-port": "^7.1.0"
+  }
+}

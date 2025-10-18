@@ -1,0 +1,43 @@
+<script type="text/javascript">
+RED.nodes.registerType('rmq-producer',{
+  category: 'zutils',
+  color: '#E6F4EA',
+  defaults: {
+    name: {value:""},
+    baseUrl: {value:"http://127.0.0.1:18080"}
+  },
+  inputs:1,
+  outputs:1,
+  icon:"send.svg",
+  label: function() { return this.name || "rmq-producer"; }
+});
+</script>
+
+<script type="text/html" data-template-name="rmq-producer">
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name">
+  </div>
+  <div class="form-row">
+    <label for="node-input-baseUrl"><i class="fa fa-link"></i> Sidecar Base URL</label>
+    <input type="text" id="node-input-baseUrl" placeholder="http://127.0.0.1:18080">
+  </div>
+  <div class="form-tips">
+    <b>msg.rocketmq</b> = { namesrv, producerGroup, topic, tag?, key?, sendTimeoutMs?, accessKey?, accessSecret? }
+  </div>
+</script>
+
+<script type="text/html" data-help-name="rmq-producer">
+  <p>Send message via REST sidecar:</p>
+  <pre>
+msg.rocketmq = {
+  namesrv: "host:9876",
+  producerGroup: "PG_XXX",
+  topic: "TOPIC_XXX",
+  tag: "status",
+  key: "k1",
+  accessKey: "...",
+  accessSecret: "..."
+};
+msg.payload = { any json or string };</pre>
+</script>

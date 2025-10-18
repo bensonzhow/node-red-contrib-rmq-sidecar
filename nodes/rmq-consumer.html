@@ -1,0 +1,42 @@
+<script type="text/javascript">
+RED.nodes.registerType('rmq-consumer',{
+  category: 'zutils',
+  color: '#FFF4E5',
+  defaults: {
+    name: {value:""},
+    baseUrl: {value:"http://127.0.0.1:18080"}
+  },
+  inputs:1,
+  outputs:1,
+  icon:"serial.svg",
+  label: function() { return this.name || "rmq-consumer"; }
+});
+</script>
+
+<script type="text/html" data-template-name="rmq-consumer">
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name">
+  </div>
+  <div class="form-row">
+    <label for="node-input-baseUrl"><i class="fa fa-link"></i> Sidecar Base URL</label>
+    <input type="text" id="node-input-baseUrl" placeholder="http://127.0.0.1:18080">
+  </div>
+  <div class="form-tips">
+    Send <b>msg.cmd = "start"</b> or <b>"stop"</b> with <b>msg.rocketmq</b> =
+    { namesrv, consumerGroup, topic, tag?, bufferSize?, threadNums?, maxReconsumeTimes?, accessKey?, accessSecret? }.
+    Messages will be emitted as individual <b>msg.payload</b>.
+  </div>
+</script>
+
+<script type="text/html" data-help-name="rmq-consumer">
+  <p>Start/stop consumer via sidecar and poll messages.</p>
+  <pre>
+msg.cmd = "start";
+msg.rocketmq = {
+  namesrv: "host:9876",
+  consumerGroup: "CG_XXX",
+  topic: "TOPIC_XXX",
+  tag: "*"
+};</pre>
+</script>

@@ -1,0 +1,30 @@
+<script type="text/javascript">
+RED.nodes.registerType('rmq-sidecar',{
+  category: 'zutils',
+  color: '#C0D6E4',
+  defaults: {
+    name: {value:""},
+    port: {value:18080}
+  },
+  inputs:1,
+  outputs:1,
+  icon:"bridge.svg",
+  label: function() { return this.name || "rmq-sidecar"; }
+});
+</script>
+
+<script type="text/html" data-template-name="rmq-sidecar">
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name">
+  </div>
+  <div class="form-row">
+    <label for="node-input-port"><i class="fa fa-plug"></i> Port</label>
+    <input type="number" id="node-input-port" placeholder="18080">
+  </div>
+</script>
+
+<script type="text/html" data-help-name="rmq-sidecar">
+  <p>Starts embedded RocketMQ 4.x REST sidecar (native binary) on 127.0.0.1.</p>
+  <p>Input any msg to start; output includes {baseUrl}.</p>
+</script>
