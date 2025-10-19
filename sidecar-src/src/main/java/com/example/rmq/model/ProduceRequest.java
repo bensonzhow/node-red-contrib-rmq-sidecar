@@ -10,4 +10,6 @@ public class ProduceRequest {
   public Integer sendTimeoutMs;  // optional
   public String accessKey;       // optional (ACL)
   public String accessSecret;    // optional (ACL)
+  public String sendMode;        // optional: sync|async|oneway
+  public Integer asyncWaitMs;    // optional: override async wait timeout
 }
