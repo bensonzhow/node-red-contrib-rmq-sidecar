@@ -1,22 +1,22 @@
 [
     {
-        "id": "fa16d91dc28e2f08",
+        "id": "50f8827b9a437dac",
         "type": "rmq-sidecar",
-        "z": "465920a81d581840",
+        "z": "fa28e8509dc7b0d4",
         "name": "",
         "port": 18080,
-        "x": 510,
-        "y": 1120,
+        "x": 550,
+        "y": 2060,
         "wires": [
             [
-                "3ef4fd4a3150d088"
+                "5dfa06927e29f128"
             ]
         ]
     },
     {
-        "id": "437c70d63a615db4",
+        "id": "778e909e4179b641",
         "type": "inject",
-        "z": "465920a81d581840",
+        "z": "fa28e8509dc7b0d4",
         "name": "",
         "props": [
             {
@@ -34,19 +34,19 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 330,
-        "y": 1120,
+        "x": 340,
+        "y": 2060,
         "wires": [
             [
-                "fa16d91dc28e2f08"
+                "50f8827b9a437dac"
             ]
         ]
     },
     {
-        "id": "3ef4fd4a3150d088",
+        "id": "5dfa06927e29f128",
         "type": "debug",
-        "z": "465920a81d581840",
-        "name": "调试 28",
+        "z": "fa28e8509dc7b0d4",
+        "name": "调试 21",
         "active": true,
         "tosidebar": true,
         "console": false,
@@ -54,14 +54,48 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 700,
-        "y": 1120,
+        "x": 730,
+        "y": 2060,
         "wires": []
+    },
+    {
+        "id": "16e17ed79a2bb9cb",
+        "type": "rmq-producer",
+        "z": "fa28e8509dc7b0d4",
+        "name": "",
+        "baseUrl": "http://127.0.0.1:18080",
+        "x": 660,
+        "y": 2160,
+        "wires": [
+            [
+                "3c52fb8674e5f0f2"
+            ]
+        ]
+    },
+    {
+        "id": "64b9641d3a8923c3",
+        "type": "function",
+        "z": "fa28e8509dc7b0d4",
+        "name": "发送配置",
+        "func": "msg.baseUrl = \"http://127.0.0.1:8080\";\n\nlet server = \"MQ_INST_1567384489349979_BkpqwyFQ.cn-zhengzhou-hndl-d01.mq.namesrv.res.emss-ha.sgcc.com.cn:9876\"\n\nmsg.rocketmq = {\n  namesrv: server,  \n  producerGroup: \"PG_JD_PLAN\",\n  topic: \"GK_JD_PLAN_WORKING_STATUS_TOPIC\",\n  tag: \"status\",\n  // 如果服务端开启 ACL：\n  accessKey: \"CBFHsQRQQhqR1okE\",\n  accessSecret: \"W4zy3zHEZ3WbuYgW0Urc9oD56lCmDf\",\n  sendTimeoutMs: 10000\n};\nmsg.payload = {\n  sendMode:'async',//sync|async|oneway\n  startTime: '2020-10-10 10:10:10',\n  plantNo: '007',\n  curWkStatusCode: '02',\n  previousState: '04',\n  receiveTime: '2020-10-10 10:10:10'\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 2160,
+        "wires": [
+            [
+                "16e17ed79a2bb9cb"
+            ]
+        ]
     },
     {
         "id": "d7ce7a81f17f5a70",
         "type": "inject",
-        "z": "465920a81d581840",
+        "z": "fa28e8509dc7b0d4",
         "name": "",
         "props": [
             {
@@ -80,7 +114,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 330,
-        "y": 1220,
+        "y": 2160,
         "wires": [
             [
                 "64b9641d3a8923c3"
@@ -88,43 +122,9 @@
         ]
     },
     {
-        "id": "64b9641d3a8923c3",
-        "type": "function",
-        "z": "465920a81d581840",
-        "name": "函数 6",
-        "func": "msg.baseUrl = \"http://127.0.0.1:18080\";\n\nlet server = \"MQ_INST_1567384489349979_BkpqwyFQ.cn-zhengzhou-hndl-d01.mq.namesrv.res.emss-ha.sgcc.com.cn:9876\"\n\nmsg.rocketmq = {\n  namesrv: server,  \n  producerGroup: \"PG_JD_PLAN\",\n  topic: \"GK_JD_PLAN_WORKING_STATUS_TOPIC\",\n  tag: \"status\",\n  // 如果服务端开启 ACL：\n  accessKey: \"CBFHsQRQQhqR1okE\",\n  accessSecret: \"W4zy3zHEZ3WbuYgW0Urc9oD56lCmDf\",\n  sendTimeoutMs: 10000\n};\nmsg.payload = {\n  startTime: '2020-10-10 10:10:10',\n  plantNo: '007',\n  curWkStatusCode: '02',\n  previousState: '04',\n  receiveTime: '2020-10-10 10:10:10'\n};\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 490,
-        "y": 1220,
-        "wires": [
-            [
-                "16e17ed79a2bb9cb"
-            ]
-        ]
-    },
-    {
-        "id": "16e17ed79a2bb9cb",
-        "type": "rmq-producer",
-        "z": "465920a81d581840",
-        "name": "",
-        "baseUrl": "http://127.0.0.1:18080",
-        "x": 660,
-        "y": 1220,
-        "wires": [
-            [
-                "3c52fb8674e5f0f2"
-            ]
-        ]
-    },
-    {
         "id": "3c52fb8674e5f0f2",
         "type": "debug",
-        "z": "465920a81d581840",
+        "z": "fa28e8509dc7b0d4",
         "name": "调试 22",
         "active": true,
         "tosidebar": true,
@@ -134,7 +134,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 850,
-        "y": 1220,
+        "y": 2160,
         "wires": []
     }
 ]

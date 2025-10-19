@@ -4,6 +4,15 @@
 
 如果使用RocketMQ 5.x 使用另一个插件 https://www.npmjs.com/package/node-red-zrocketmq
 
+
+![node-red-contrib-rmq-sidecar](images/image.png)
+
+实例JSON配置
+[查看示例](examples/demo.json)
+
+
+
+二次开发源码构建步骤
 ## 安装 & 构建
 
 1) 安装 GraalVM JDK 17，`gu install native-image`，安装 Maven。
