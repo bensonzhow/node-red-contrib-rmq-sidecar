@@ -166,6 +166,8 @@
             <buildArg>--report-unsupported-elements-at-runtime</buildArg>
             <!-- 保险：把 Commons Logging 关键类改为运行时初始化 -->
             <buildArg>--initialize-at-run-time=org.apache.commons.logging.LogFactory,org.apache.commons.logging.impl.LogFactoryImpl</buildArg>
+            <!-- RocketMQ ACL 依赖 JCE HmacSHA1，需要完整安全服务 -->
+            <buildArg>--enable-all-security-services</buildArg>
             <!-- 如仍报错，可临时加： - -trace-class-initialization=org.apache.commons.logging.LogFactory -->
           </buildArgs>
         </configuration>
