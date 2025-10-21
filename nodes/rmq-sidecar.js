@@ -66,7 +66,7 @@ module.exports = function(RED) {
 
   function pickBinary() {
     const dir = path.join(__dirname, '..', 'sidecar');
-    const winExe = path.join(dir, 'windows', 'rocketmq-sidecar.exe');
+    const winExe = path.join(dir, 'windows', 'rocketmq-sidecar', 'rocketmq-sidecar.exe');
     const linElf = path.join(dir, 'linux', 'rocketmq-sidecar');
 
     // Prefer native binaries by platform

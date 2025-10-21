@@ -57,7 +57,9 @@ module.exports = function(RED) {
           accessKey: cfg.accessKey,
           accessSecret: cfg.accessSecret
         };
-
+        if(cfg.sendMode){
+            body.sendMode = cfg.sendMode;
+        }
         const client = axios.create({ baseURL: base, timeout: (cfg.sendTimeoutMs || 10000) + 1000, httpAgent: new http.Agent({ keepAlive: false }), httpsAgent: new https.Agent({ keepAlive: false }) });
 
         const res = await withRetry(() => client.post('/produce', body), 3, 300);
